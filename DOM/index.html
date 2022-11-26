@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+        .blueStyle {
+            color: blue;
+            font-family: Verdana;
+        }
+        .article {
+            font-size: 20px;
+        }
+
+        #rect {
+        width: 100px;
+        height: 100px;
+        background: #50c878;
+        border: 3px solid silver;
+    }
+
+    hello-metenit {
+        font-size: 22px;
+        font-family: Verdana;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="rect"></div>
+    <div class="article" style="color: red">
+        <h3>Заголовок статьи</h3>
+        <p>Первый абзац</p>
+        <p>Второй абзац</p>
+    </div>
+
+    <hello-metanit id="hello"></hello-metanit>
+    <br>
+    <hello-metanit hellocolor="#2980b9"></hello-metanit>
+
+    <script src="scripts.js">
+        class HelloMetanit extends HTMLElement {
+            constructor() {
+                super();
+
+                let welcome = "Good morning";
+                const hour = new Date().getHours();
+
+                if (hour > 17) {
+                    welcome = "Good evening";
+                } else if (hour > 12) {
+                    welcome = "Good day";
+                }
+
+                this.style.cursor = "pointer"
+                this.innerText = welcome;
+            }
+
+            connectedCallback() {
+                this.style.color = "red";
+
+                if (this.hasAttribute("hellocolor")) {
+                    this.style.color = this.getAttribute("hellocolor");
+                }
+            }
+
+            showTime() {
+                console.log(new Date().toTimeString());
+            }
+        }
+
+        customElements.define("hello-metanit", HelloMetanit);
+
+        const hello = document.getElementById("hello");
+        // по нажатию вызываем его метод showTime
+        hello.addEventListener("click", () => hello.showTime());
+    </script>
+</body>
+
+</html>
